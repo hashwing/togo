@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -113,13 +114,21 @@ func httpAction(c *cli.Context) error {
 			encoded = false
 		case strings.HasSuffix(match, ".html"):
 			encoded = false
+		case strings.HasSuffix(match, ".map"):
+			encoded = false
+		case strings.HasSuffix(match, ".svg"):
+			encoded = false
 		}
 		data := string(raw)
 		if !encoded {
+			if strings.Contains(data, "\xef\xbb\xbf") {
+				fmt.Println(match)
+			}
+			data = strings.Replace(data, "\xef\xbb\xbf", "", -1)
 			data = strings.Replace(data, "`", "`+\"`\"+`", -1)
 		}
 		params.Files = append(params.Files, &httpFile{
-			Path:    strings.TrimPrefix(match, prefix),
+			Path:    strings.Replace(strings.TrimPrefix(match, prefix), "\\", "/", -1),
 			Name:    filepath.Base(match),
 			Base:    strings.TrimSuffix(filepath.Base(match), filepath.Ext(match)),
 			Ext:     filepath.Ext(match),
