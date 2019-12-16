@@ -1,0 +1,19 @@
+# github.com/bmatcuk/doublestar v1.2.1
+github.com/bmatcuk/doublestar
+# github.com/cpuguy83/go-md2man/v2 v2.0.0-20190314233015-f79a8a8ca69d
+github.com/cpuguy83/go-md2man/v2/md2man
+# github.com/nicksnyder/go-i18n v1.10.1
+github.com/nicksnyder/go-i18n/i18n
+github.com/nicksnyder/go-i18n/i18n/bundle
+github.com/nicksnyder/go-i18n/i18n/language
+github.com/nicksnyder/go-i18n/i18n/translation
+# github.com/pelletier/go-toml v1.2.0
+github.com/pelletier/go-toml
+# github.com/russross/blackfriday/v2 v2.0.1
+github.com/russross/blackfriday/v2
+# github.com/shurcooL/sanitized_anchor_name v1.0.0
+github.com/shurcooL/sanitized_anchor_name
+# github.com/urfave/cli v1.22.2
+github.com/urfave/cli
+# gopkg.in/yaml.v2 v2.2.2
+gopkg.in/yaml.v2

@@ -11,7 +11,7 @@ import (
 	"github.com/bmatcuk/doublestar"
 	"github.com/urfave/cli"
 
-	"github.com/bradrydzewski/togo/template"
+	"github.com/hashwing/togo/template"
 )
 
 type (
