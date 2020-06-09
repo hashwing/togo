@@ -71,6 +71,7 @@ func (p *Parser) Parse(r io.Reader) ([]*Statement, error) {
 	}
 	for _, stmt := range stmts {
 		stmt.Value = strings.TrimSpace(stmt.Value)
+		stmt.Value = strings.Replace(stmt.Value, "`", "`+\"`\"+`", -1)
 	}
 	return stmts, nil
 }
