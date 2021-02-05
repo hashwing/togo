@@ -1,6 +1,6 @@
 ## togo
 
-生成golang 代码，支持ddl、http（web）、sql、template、i18n、httptest
+生成golang 代码，支持ddl、http（web，支持gzip压缩）、sql、template、i18n、httptest
 
 ## usage
 
@@ -56,40 +56,10 @@ gin 使用
 
 func main(){
     //some code...
-    uiHandle := MakeGzipHandler(http.FileServer(ui.New()))
-	r.GET("/", gin.WrapH(uiHandle))
-	r.GET("/app.js", gin.WrapH(uiHandle))
-    r.GET("/app.css", gin.WrapH(uiHandle))
+	r.GET("/", gin.WrapH(ui.NewHandler()))
+	r.GET("/app.js", gin.WrapH(ui.NewHandler()))
+    r.GET("/app.css", gin.WrapH(ui.NewHandler()))
     //some code...
-}
-
-
-type gzipResponseWriter struct {
-	io.Writer
-	http.ResponseWriter
-}
-
-// Use the Writer part of gzipResponseWriter to write the output.
-func (w gzipResponseWriter) Write(b []byte) (int, error) {
-	return w.Writer.Write(b)
-}
-
-// MakeGzipHandler adds support for gzip compression for given handler
-func MakeGzipHandler(handler http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// Check if the client can accept the gzip encoding.
-		if !strings.Contains(r.Header.Get("Accept-Encoding"), "gzip") {
-			handler.ServeHTTP(w, r)
-			return
-		}
-
-		// Set the HTTP header indicating encoding.
-		w.Header().Set("Content-Encoding", "gzip")
-		gz := gzip.NewWriter(w)
-		defer gz.Close()
-		gzw := gzipResponseWriter{Writer: gz, ResponseWriter: w}
-		handler.ServeHTTP(gzw, r)
-	})
 }
 
 ```
