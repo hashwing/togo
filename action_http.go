@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"runtime"
 	"strings"
 
 	"github.com/bmatcuk/doublestar"
@@ -68,7 +69,9 @@ func httpAction(c *cli.Context) error {
 	if pattern == "" {
 		pattern = c.String("input")
 	}
-
+	if runtime.GOOS == "window" {
+		pattern = strings.ReplaceAll(pattern, "/", "\\")
+	}
 	matches, err := doublestar.Glob(pattern)
 	if err != nil {
 		return err
