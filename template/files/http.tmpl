@@ -25,7 +25,11 @@ func (fs *fileSystem) Open(name string) (http.File, error) {
 	index := strings.Replace(name+"/index.html", "//", "/", -1)
 	f, ok = fs.files[index]
 	if !ok {
-		return nil, os.ErrNotExist
+		f, ok = fs.files["/index.html"]
+		if !ok {
+			return nil, os.ErrNotExist
+		}
+		return newHTTPFile(f, false), nil
 	}
 	return newHTTPFile(f, true), nil
 }
